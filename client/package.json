@@ -26,10 +26,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "wesbos"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
