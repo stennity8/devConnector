@@ -26,7 +26,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "wesbos"
+    ]
   },
   "browserslist": {
     "production": [
@@ -42,6 +45,6 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "eslint": "^6.8.0"
   }
 }
