@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setAlert} from './alert'
+import { setAlert } from './alert';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -11,11 +11,12 @@ import {
   CLEAR_PROFILE
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
+import history from '../history';
 
 // Load User
 export const loadUser = () => async dispatch => {
-  if(localStorage.token){
-    setAuthToken(localStorage.token)
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
   }
 
   try {
@@ -28,17 +29,17 @@ export const loadUser = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: AUTH_ERROR
-    })
+    });
   }
-}
+};
 
 // Register User
-export const register = ({name, email, password}) => async dispatch => {
+export const register = ({ name, email, password }) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
-  }
+  };
 
   const body = JSON.stringify({ name, email, password });
 
@@ -51,11 +52,10 @@ export const register = ({name, email, password}) => async dispatch => {
     });
 
     dispatch(loadUser());
-
   } catch (error) {
     const errors = error.response.data.errors;
 
-    if(errors) {
+    if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
@@ -63,7 +63,7 @@ export const register = ({name, email, password}) => async dispatch => {
       type: REGISTER_FAIL
     });
   }
-}
+};
 
 // Login User
 export const login = (email, password) => async dispatch => {
@@ -71,7 +71,7 @@ export const login = (email, password) => async dispatch => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }
+  };
 
   const body = JSON.stringify({ email, password });
 
@@ -84,11 +84,10 @@ export const login = (email, password) => async dispatch => {
     });
 
     dispatch(loadUser());
-
   } catch (error) {
     const errors = error.response.data.errors;
 
-    if(errors) {
+    if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
@@ -96,9 +95,10 @@ export const login = (email, password) => async dispatch => {
       type: LOGIN_FAIL
     });
   }
-}
+};
 
 export const logout = () => dispatch => {
-  dispatch({ type: CLEAR_PROFILE })
-  dispatch({ type: LOGOUT })
-}
+  dispatch({ type: CLEAR_PROFILE });
+  dispatch({ type: LOGOUT });
+  history.push('/login');
+};
